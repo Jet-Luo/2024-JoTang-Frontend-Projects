@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with JT GPT</title>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./styles/bootstrap.min.css">
+    <link rel="stylesheet" href="./font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./styles/style.css">
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <!-- <button class="btn">☰</button> -->
+
+    <div class="sidebar">
+        <div class="top">
+            <button type="button" class="btn btn-toggle"><i class="bi bi-layout-sidebar-inset"></i></button>
+            <button type="button" class="btn btn-new-session"><i class="bi bi-pencil-square"></i></button>
+        </div>
+        <!-- <div class="new">sidebar>new</div> -->
+        <ul class="session-list">sidebar>session-list</ul>
+        <div class="setting">
+            <button class="btn" id="open-settings"><i class="bi bi-gear"></i></button>
+        </div>
+    </div>
+    <div class="content">
+        <div class="topbar">
+            <div>JT GPT</div>
+        </div>
+        <div class="conversation">
+            <div class="initial">
+                <h2>Let's talk about
+                    <div class="mask">
+                        <span data-show>Coding.</span>
+                        <span>Workout.</span>
+                        <span>Emotion.</span>
+                        <span>Literature.</span>
+                    </div>
+                </h2>
+            </div>
+        </div>
+        <div class="send">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control user-input" placeholder="Message JT GPT...">
+                <button class="btn btn-outline-secondary send-button" type="button" id="button-addon2"><i class="bi bi-send"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 设置面板 -->
+    <div id="settings-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>设置</h2>
+            <div class="settings-section">
+                <label for="theme-toggle">主题切换：</label>
+                <button id="theme-toggle">切换主题</button>
+            </div>
+            <div class="settings-section">
+                <label for="response-length">AI回答长度：</label>
+                <select id="response-length">
+                    <option value="short">短</option>
+                    <option value="medium" selected>中</option>
+                    <option value="long">长</option>
+                </select>
+            </div>
+            <div class="settings-section">
+                <label for="temperature">模型温度：</label>
+                <input type="range" id="temperature" min="0" max="1" step="0.1" value="0.7" />
+                <span id="temperature-value">0.7</span>
+            </div>
+            <div class="settings-section">
+                <label for="auto-toggle">
+                    <input type="checkbox" id="auto-toggle" checked />
+                    根据系统设置自动切换主题
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <script src="./scripts/bootstrap.min.js"></script>
+    <script src="./scripts/script.js"></script>
+
+</body>
+
+</html>

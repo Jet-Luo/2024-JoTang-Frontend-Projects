@@ -1,0 +1,545 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  font-size: 16px;
+  --background-color-light: var(--bs-gray-100);
+  --background-color-dark: var(--bs-gray-200);
+  --text-color-dark: var(--bs-black);
+  --text-color-light: var(--bs-gray-dark);
+  --message-background-user: var(--bs-primary);
+  --message-background-ai: #ffa157;
+  --message-text-ai: var(--bs-black);
+  --primary-color: var(--bs-primary);
+  --secondary-color: #f0f0f0;
+  --button-background: var(--bs-gray-300);
+  --button-text: #fff;
+  --border-color: var(--bs-gray-300)
+}
+
+.dark-theme {
+  --background-color-dark: var(--bs-gray-900);
+  --background-color-light: var(--bs-gray-800);
+  --text-color-dark: var(--bs-gray);
+  --text-color-light: var(--bs-light);
+  --message-background-user: var(--bs-secondary);
+  /* --message-background-ai: #b33e00; */
+  --message-background-ai: #262626;
+  --message-text-ai: var(--bs-gray-400);
+  --primary-color: var(--bs-primary);
+  --secondary-color: #f0f0f0;
+  --button-background: var(--bs-gray-700);
+  --button-text: var(--bs-gray-400);
+  --border-color: var(--bs-gray-700);
+}
+
+p {
+  margin-bottom: 0;
+}
+
+/* 设置滚动条的宽度或高度 */
+::-webkit-scrollbar {
+  width: 8px; /* 垂直滚动条宽度 */
+  height: 8px; /* 水平滚动条高度 */
+}
+
+/* 滚动条的轨道（背景） */
+::-webkit-scrollbar-track {
+  background: var(--background-color-light); /* 轨道颜色 */
+  border-radius: 5px; /* 轨道圆角 */
+}
+
+/* 滚动条滑块（滑块部分） */
+::-webkit-scrollbar-thumb {
+  background: var(--background-color-dark); /* 滑块颜色 */
+  border-radius: 5px; /* 滑块圆角 */
+}
+
+body {
+  min-height: 100vh;
+  /* background-color: #ffbd71; */
+  background-color: var(--background-color-light);
+  /* animation: show .2s; */
+}
+
+/* 左侧导航栏：顶部、新建对话、历史对话、设置 */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 260px;
+  min-height: 100vh;
+  /* background-color: #ffbd71; */
+  background-color: var(--background-color-dark);
+  /* transition: transform 0.3s ease-in-out; */
+  /* transition: transform 0.3s cubic-bezier(.16,1,.3,1); */
+  transition: all 0.3s cubic-bezier(.4, 0, .2, 1);
+  /* ChatGPT网站上找到的动画曲线，用起来很丝滑捏/
+  /* transform: translateX(0); */
+}
+
+.sidebar .top,
+/* .sidebar .new, */
+.sidebar .setting,
+.content .topbar {
+  height: 3.5rem;
+  /* border: 1px solid gray; */
+}
+
+.sidebar .top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sidebar .session-list {
+  margin: 0;
+  padding: .5rem 1rem;
+  height: calc(100vh - 3.5rem * 2);
+  list-style: none;
+  overflow-y: auto;
+}
+
+.sidebar .session-list .session-item {
+  padding: 10px 15px;
+  border-radius: 5px;
+  /* border-bottom: 1px solid #ccc; */
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-color-dark);
+}
+
+.session-item.active {
+  background-color: var(--button-background);
+}
+
+.session-item:hover {
+  /* background-color: #e0e0e0; */
+  background-color: var(--button-background);
+}
+
+.sidebar .session-list button {
+  background-color: transparent;
+  color: var(--text-color-dark);
+  border: none;
+  cursor: pointer;
+}
+
+.sidebar .setting {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--background-color-dark);
+}
+
+.sidebar .setting #open-settings {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+}
+
+/* 右侧对话框：顶部、对话界面、消息发送框 */
+.content {
+  /* flex: 1; */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-left: 260px;
+  height: 100vh;
+  /* overflow: auto; */
+  /* background-color: #ffa157; */
+  background-color: var(--background-color-light);
+  /* transition: margin-left 0.3s ease-in-out; */
+  /* transition: margin-left 0.3s cubic-bezier(.16,1,.3,1); */
+  transition: all 0.3s cubic-bezier(.4, 0, .2, 1);
+}
+
+.content .topbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  font-weight: 700;
+  text-align: center;
+  line-height: 3.5rem;
+  font-size: 1.5rem;
+  /* color: #000; */
+  background-color: var(--background-color-light);
+}
+
+.content .conversation {
+  flex: 1;
+  overflow: auto;
+  scroll-behavior: smooth;
+  /* border: 1px solid gray; */
+}
+
+.content .conversation {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 86px 80px;
+}
+
+/* 轮播字效果 */
+/* 居中效果 */
+.content .conversation .initial {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation: show .2s;
+}
+
+.content .conversation h2 {
+  /* font-size: 2rem; */
+  font-weight: 700;
+  font-family: Helvetica;
+  line-height: 1.06 !important;
+  letter-spacing: -0.02em !important;
+  color: #1d1d1f;
+}
+
+.content .conversation .mask {
+  height: calc((1.325rem + .9vw) * 1.06);
+  position: relative;
+  /* border: 1px solid red; */
+  overflow: hidden;
+  margin-top: calc((1.325rem + .9vw) * 0.06);
+}
+
+.mask span {
+  display: block;
+  position: absolute;
+  top: 100%;
+  padding-bottom: calc((1.325rem + .9vw) * 0.06);
+
+  background-size: 100% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-repeat: no-repeat;
+}
+
+.mask span[data-show] {
+  transform: translateY(-100%);
+  transition: transform .5s cubic-bezier(.4, 0, .2, 1);
+}
+
+.mask span[data-up] {
+  transform: translateY(-200%);
+  transition: transform .5s cubic-bezier(.4, 0, .2, 1);
+}
+
+.mask span:nth-child(1) {
+  background-image: linear-gradient(45deg, #0ecffe 50%, #07a6f1);
+}
+
+.mask span:nth-child(2) {
+  background-image: linear-gradient(45deg, #18e198 50%, #0ec15d);
+}
+
+.mask span:nth-child(3) {
+  background-image: linear-gradient(45deg, #8a7cfb 50%, #633e9c);
+}
+
+.mask span:nth-child(4) {
+  background-image: linear-gradient(45deg, #fa7671 50%, #f45f7f);
+}
+
+/* messages */
+.message {
+  margin-bottom: 15px;
+  max-width: 70%;
+  padding: 10px 15px;
+  border-radius: 20px;
+  /* 动画渐入效果bug：renderMessages时是所有的message都会重新加载 */
+  /* opacity: 0;
+  transform: translateY(10px);
+  animation: fadeIn .3s forwards; */
+}
+
+.message.user {
+  background-color: var(--message-background-user);
+  color: var(--button-text);
+  justify-content: start;
+  align-self: flex-end;
+}
+
+.message.assistant {
+  /* background-color: var(--secondary-color); */
+  background-color: var(--message-background-ai);
+  color: var(--message-text-ai);
+  justify-content: start;
+  align-self: flex-start;
+}
+
+/* send */
+.content .send {
+  position: sticky;
+  bottom: 1rem;
+  margin: 0 auto;
+  width: 30%;
+  /* left: 50%;
+  transform: translateX(-50%); */
+  /* 不知道为什么上面的方法不能使元素正常居中显示（伸长时） */
+  padding-bottom: 1rem;
+  /* border: 1px solid gray; */
+  transition: all 0.3s cubic-bezier(.4, 0, .2, 1)
+}
+
+.content .send input {
+  background-color: var(--background-color-dark);
+  border-color: var(--border-color);
+  color: var(--text-color-light);
+}
+
+.content .send input:focus {
+
+  box-shadow: none;
+}
+
+.content .send input::placeholder {
+  color: var(--text-color-light);
+  filter: brightness(.5);
+}
+
+
+/* 侧导航栏展开/隐藏 */
+.btn {
+  z-index: 1000;
+  background-color: var(--button-background) !important;
+  border-color: var(--button-background) !important;
+  transition: all .2s ease;
+  animation: show .2s;
+}
+
+.btn-toggle {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  /* color: #fff; */
+}
+
+.btn-new-session {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+}
+
+.btn:hover {
+  filter: brightness(.85);
+}
+
+.sidebar.collapsed {
+  transform: translateX(-260px);
+}
+
+.content.expanded {
+  margin-left: 0;
+  z-index: 1000;
+}
+
+/* 设置面板 */
+/* 背景 */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+/* 内容 */
+.modal-content {
+  background-color: var(--background-color-light);
+  color: var(--text-color-dark);
+  padding: 20px;
+  border-radius: 8px;
+  width: 500px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  animation: show .2s;
+}
+
+.modal-content h2 {
+  padding-bottom: 5px;
+}
+
+.modal-content h3 {
+  margin-bottom: 5px;
+  font-size: 1.1em;
+  /* color: var(--bs-gray-dark); */
+}
+
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.settings-section {
+  position: relative;
+  background-color: var(--background-color-dark);
+  border-radius: 10px;
+  display: flex;
+  padding: 0 3px;
+  margin-bottom: 20px;
+}
+
+.settings-section input[type="radio"] {
+  display: none;
+}
+
+.settings-section label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  /* 图标和文字之间的间距 */
+  z-index: 2;
+  padding: 8px 0;
+  height: 100%;
+  width: calc(100% / 3);
+  color: var(--message-text-ai);
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+.settings-section label:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.settings-section .slider {
+  position: absolute;
+  z-index: 1;
+  width: calc((100% - 6px) / 3);
+  top: 3px;
+  bottom: 3px;
+  transform: translateX(0);
+  border-radius: 8px;
+  transition: all .3s cubic-bezier(.4, 0, .2, 1);
+  background-color: var(--background-color-light);
+}
+
+/* ~ .slider 表示匹配该元素之后的 .slider 元素 */
+.theme-switcher input:nth-of-type(1):checked~.slider,
+.response-length-switcher input:nth-of-type(1):checked~.slider,
+.temperature-switcher input:nth-of-type(1):checked~.slider {
+  transform: translateX(0);
+}
+
+.theme-switcher input:nth-of-type(2):checked~.slider,
+.response-length-switcher input:nth-of-type(2):checked~.slider,
+.temperature-switcher input:nth-of-type(2):checked~.slider {
+  transform: translateX(100%);
+}
+
+.theme-switcher input:nth-of-type(3):checked~.slider,
+.response-length-switcher input:nth-of-type(3):checked~.slider,
+.temperature-switcher input:nth-of-type(3):checked~.slider {
+  /* 注意温度切换只有3个选项 */
+  transform: translateX(200%);
+}
+
+.settings-section textarea {
+  padding: 10px;
+  background-color: var(--background-color-light);
+  border-color: var(--background-color-dark);
+  border-radius: 10px;
+  color: var(--text-color-dark);
+  width: 100%;
+}
+
+.settings-section:last-child {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.settings-section .btn {
+  margin-left: 5px;
+}
+
+
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 响应式布局：针对发送框长度优化 */
+@media (max-width: 910px) {
+  .content .send {
+    width: 70%;
+  }
+}
+
+/* 响应式布局：针对侧导航栏优化 */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-260px);
+    z-index: 1000;
+    /* position: absolute; */
+    /* display: block; */
+    /* left: -100%; */
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .message.assistant {
+    max-width: 100%;
+  }
+
+  /* 遮罩：使背景稍稍变暗以示被遮挡————此法不通 */
+  /* .content::after {
+      content: '';
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /* backdrop-filter: blur(.3px); */
+  /* background-color: rgba(0, 0, 0, 0.1);
+  } */
+
+  .content {
+    margin-left: 0;
+  }
+
+  .content.masked {
+    filter: brightness(.85);
+  }
+
+  .modal-content {
+    width: 350px;
+  }
+}

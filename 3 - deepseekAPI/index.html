@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with JT GPT</title>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./styles/bootstrap.min.css">
+    <link rel="stylesheet" href="./font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./styles/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+
+<body>
+    <!-- <button class="btn">☰</button> -->
+
+    <div class="sidebar">
+        <div class="top">
+            <button type="button" class="btn btn-toggle"><i class="bi bi-layout-sidebar-inset"></i></button>
+            <button type="button" class="btn btn-new-session"><i class="bi bi-pencil-square"></i></button>
+        </div>
+        <!-- <div class="new">sidebar>new</div> -->
+        <ul class="session-list"></ul>
+        <div class="setting">
+            <button class="btn" id="open-settings"><i class="bi bi-gear"></i></button>
+        </div>
+    </div>
+    <div class="content">
+        <div class="topbar">
+            <div>JT GPT</div>
+        </div>
+        <div class="conversation">
+            <div class="initial">
+                <h2>Let's talk about
+                    <div class="mask">
+                        <span data-show>Coding.</span>
+                        <span>Workout.</span>
+                        <span>Emotion.</span>
+                        <span>Literature.</span>
+                    </div>
+                </h2>
+            </div>
+        </div>
+        <div class="send">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control user-input" placeholder="Message JT GPT...">
+                <button class="btn btn-outline-secondary send-button" type="button" id="button-addon2"><i
+                        class="bi bi-send"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 设置面板 -->
+    <div id="settings-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Settings</h2>
+
+            <!-- 主题切换 -->
+             <h3>Themes</h3>
+            <div class="settings-section theme-switcher">
+                <input type="radio" name="themes" id="light-theme">
+                <label for="light-theme"><i class="bi bi-sun"></i>Light</label>
+                <input type="radio" name="themes" id="dark-theme">
+                <label for="dark-theme"><i class="bi bi-moon"></i>Dark</label>
+                <input type="radio" name="themes" id="auto-theme">
+                <label for="auto-theme"><i class="bi bi-clock"></i>Auto</label>
+                <span class="slider"></span>
+            </div>
+
+            <!-- AI回答长度切换 -->
+            <h3>Response Length</h3>
+            <div class="settings-section response-length-switcher">
+                <input type="radio" name="response-length" id="short" value="short">
+                <label for="short"><i class="bi bi-reception-2"></i>Short</label>
+                <input type="radio" name="response-length" id="medium" value="medium" checked>
+                <label for="medium"><i class="bi bi-reception-3"></i>Medium</label>
+                <input type="radio" name="response-length" id="long" value="long">
+                <label for="long"><i class="bi bi-reception-4"></i>Long</label>
+                <span class="slider"></span>
+            </div>
+
+            <!-- 模型温度切换 -->
+            <h3>Temperature</h3>
+            <div class="settings-section temperature-switcher">
+                <input type="radio" name="temperature" id="temp-low" value="0">
+                <label for="temp-low"><i class="bi bi-thermometer-low"></i>0</label>
+                <input type="radio" name="temperature" id="temp-medium" value="1" checked>
+                <label for="temp-medium"><i class="bi bi-thermometer-half"></i>1</label>
+                <input type="radio" name="temperature" id="temp-high" value="1.3">
+                <label for="temp-high"><i class="bi bi-thermometer-high"></i>1.3</label>
+                <span class="slider"></span>
+            </div>
+
+            <!-- 预设Prompt -->
+        <h3>System Prompt</h3>
+        <div class="settings-section system-prompt-editor">
+            <textarea id="system-prompt" rows="4" placeholder="Enter System Prompt...">You are a helpful assistant.</textarea>
+            <button type="button" class="btn" id="save-system-prompt"><i class="bi bi-check-lg"></i></button>
+        </div>
+        </div>
+    </div>
+
+
+    <script src="./scripts/bootstrap.min.js"></script>
+    <script src="./scripts/script.js"></script>
+
+</body>
+
+</html>
