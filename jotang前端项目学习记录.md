@@ -1,6 +1,13 @@
 #jotang前端项目学习 ~~回忆录~~ 记录
 ###前言
 一个菜鸟的心得日记，随便写了一点感想，请学长学姐们轻轻敲打😇
+
+本次题目仅用HTML+CSS+JavaScript完成（因为还没学到后面🫠
+
+GitHub: [Jet-Luo/2024-JoTang-Frontend-Projects (github.com)](https://github.com/Jet-Luo/2024-JoTang-Frontend-Projects)
+
+Vercel: [2024-jo-tang-frontend-projects - Overview – Vercel](https://vercel.com/jet-luos-projects-a68aa9ee/2024-jo-tang-frontend-projects)
+
 ###10.16
 今天正式开始写学习笔记。
 
