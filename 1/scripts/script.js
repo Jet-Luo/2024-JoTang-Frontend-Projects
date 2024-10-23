@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // 下面的式子逻辑错误：当firstSc固定在顶部时，firstSc.getBoundingClientRect().top === 0
     // let scrolled = - (firstSc.getBoundingClientRect().top) / (this.document.documentElement.clientHeight * 4);
     // console.log(scrolled);
-    // console.log(this.document.documentElement.scrollTop);
+    console.log(this.document.documentElement.scrollTop);
 
 
     const workout = this.document.querySelector('.workout');
