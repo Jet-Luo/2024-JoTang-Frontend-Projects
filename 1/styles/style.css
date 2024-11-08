@@ -140,7 +140,7 @@ html {
 
 .headline .container p.animate {
   animation: .5s swift-up cubic-bezier(.4, 0, .2, 1) forwards, .5s fade-in ease-out forwards;
-  animation-delay: .6s;
+  animation-delay: .7s;
 }
 
 .headline .container span {
@@ -155,7 +155,7 @@ html {
 
 .headline .container span.animate {
   animation: .3s swift-up cubic-bezier(.4, 0, .2, 1) forwards;
-  animation-delay: calc(.2s +var(--i) * 0.1s);
+  animation-delay: calc(.2s +var(--i) * 0.08s);
 }
 
 .headline .container span i {
@@ -168,7 +168,7 @@ html {
 
 .headline .container span i.animate {
   animation: .5s swift-up cubic-bezier(.4, 0, .2, 1) forwards;
-  animation-delay: calc(.2s + var(--i) * 0.1s);
+  animation-delay: calc(.2s + var(--i) * 0.08s);
 }
 
 .gpt-intro {
@@ -190,9 +190,9 @@ html {
 }
 
 .sticky-container .sc {
-  flex: 0 0 100vh;
-  /* 每个 .sc 占据整个视口高度 */
+  /* flex: 0 0 100vh; */
   width: 100%;
+  /* 每个 .sc 占据整个视口高度 */
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -201,8 +201,6 @@ html {
   top: 0;
   left: 0; */
 }
-
-
 
 .sticky-container .sc+.sc {
   /* CSS 相邻兄弟选择器：匹配每一个 .sticky-container 内的 .sc 元素，但仅限于那些紧随另一个 .sc 元素之后的 .sc 元素（即除了第一个） */
@@ -220,10 +218,7 @@ html {
   box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.1);
 }
 
-.sticky-container .sc.emotion .card {
-  background-color: var(--bs-gray-700);
-}
-
+.sticky-container .sc.emotion .card,
 .sticky-container .sc.literature .card {
   background-color: var(--bs-gray-700);
 }
@@ -268,10 +263,7 @@ html {
   color: var(--bs-gray-900);
 }
 
-.sticky-container .sc.emotion .card .text {
-  color: var(--bs-gray-500);
-}
-
+.sticky-container .sc.emotion .card .text,
 .sticky-container .sc.literature .card .text {
   color: var(--bs-gray-500);
 }
@@ -368,7 +360,6 @@ html {
 .swiper-slide div .bi-shield-check {
   color: #fa7671;
 }
-
 
 .swiper-slide div span {
   color: #000;

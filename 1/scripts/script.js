@@ -1,13 +1,18 @@
 document.addEventListener('DOMContentLoaded', function () {
   let hasAnimated = false; // 标志变量，防止多次触发文字动画
+
+  const navbar = document.getElementById('navbar');
+  const headline = document.querySelector('.headline');
+  const headlineP = document.querySelectorAll('.headline .container p');
+  const headlineSpan = document.querySelectorAll('.headline .container span');
+  const headlineI = document.querySelectorAll('.headline .container span i');
+
+  const workout = document.querySelector('.workout');
+  const emotion = document.querySelector('.emotion');
+  const literature = document.querySelector('.literature');
+
   window.addEventListener('scroll', function (e) {
     // 导航栏滚动效果 & 文字浮现效果
-    const navbar = document.getElementById('navbar');
-    const headline = document.querySelector('.headline');
-    const headlineP = document.querySelectorAll('.headline .container p');
-    const headlineSpan = document.querySelectorAll('.headline .container span');
-    const headlineI = document.querySelectorAll('.headline .container span i');
-
     if (document.documentElement.scrollTop > 60 && !hasAnimated) {
       // 滚动后导航栏上移固定，内容浮现
       navbar.classList.add('scrolled');
@@ -37,12 +42,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // 下面的式子逻辑错误：当firstSc固定在顶部时，firstSc.getBoundingClientRect().top === 0
     // let scrolled = - (firstSc.getBoundingClientRect().top) / (this.document.documentElement.clientHeight * 4);
     // console.log(scrolled);
-    console.log(this.document.documentElement.scrollTop);
+    // console.log(this.document.documentElement.scrollTop);
 
 
-    const workout = this.document.querySelector('.workout');
-    const emotion = this.document.querySelector('.emotion');
-    const literature = this.document.querySelector('.literature');
     // workout.style.clipPath = `inset(${(1 / 3 - scrolled) / (1 / 3) * 100}% 0px 0px 0px)`;
     // emotion.style.clipPath = `inset(${(2 / 3 - scrolled) / (1 / 3) * 100}% 0px 0px 0px)`;
     // literature.style.clipPath = `inset(${(1 - scrolled) / (1 / 3) * 100}% 0px 0px 0px)`; 
@@ -51,8 +53,8 @@ document.addEventListener('DOMContentLoaded', function () {
     //   top = this.document.documentElement.scrollTop;
     // }
     // console.log(top);
-    
-    const top = 1400 // 第一个sticky-container到页面顶部的距离，需确定好样式后手动输入
+
+    const top = 1400; // 第一个sticky-container到页面顶部的距离，需确定好样式后手动输入
     const noStickyTop = top + document.documentElement.clientHeight * 3;
     if (document.documentElement.scrollTop > top) {
       workout.style.clipPath = `inset(${(1 - ((document.documentElement.scrollTop - top) / document.documentElement.clientHeight)) * 100}% 0px 0px 0px)`;
@@ -60,7 +62,6 @@ document.addEventListener('DOMContentLoaded', function () {
       emotion.style.clipPath = `inset(${(1 - ((document.documentElement.scrollTop - top - document.documentElement.clientHeight) / document.documentElement.clientHeight)) * 100}% 0px 0px 0px)`;
 
       literature.style.clipPath = `inset(${(1 - ((document.documentElement.scrollTop - top - document.documentElement.clientHeight * 2) / document.documentElement.clientHeight)) * 100}% 0px 0px 0px)`;
-
     }
     // 滚动结束后取消position: sticky，恢复margin
     if (document.documentElement.scrollTop >= noStickyTop) {
@@ -68,8 +69,6 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
       this.document.querySelector('.sticky-container').classList.remove('no-sticky');
     }
-
-
   });
 });
 

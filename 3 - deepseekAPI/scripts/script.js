@@ -8,7 +8,7 @@ const topbar = document.querySelector('.topbar')
 // 定义克隆按钮的类名
 const CLONED_CLASS = 'cloned';
 
-// 函数：切换导航状态
+// 切换导航状态
 function toggleNav() {
   // 初始状态：sidebar展开
   if (window.innerWidth > 768) {
@@ -20,7 +20,7 @@ function toggleNav() {
   }
 }
 
-// 函数：添加克隆按钮
+// 添加克隆按钮
 function addClonedButton(button) {
   // 检查是否已有克隆按钮，若有则不再克隆
   if (!content.querySelector(`.btn-toggle.${CLONED_CLASS}`)) {
@@ -36,23 +36,20 @@ function addClonedButton(button) {
     // 为克隆的按钮重新添加事件监听
     clonedBtn.addEventListener('click', () => {
       toggleNav();
-      if (window.innerWidth > 768) {
-        if (!content.classList.contains('expanded')) {
-          removeClonedButtons();
-        }
+      if (window.innerWidth > 768 && !content.classList.contains('expanded')) {
+        removeClonedButtons();
       }
     });
   }
 }
 
-// 函数：删除克隆按钮
+// 删除克隆按钮
 function removeClonedButtons() {
-
   const clonedBtns = topbar.querySelectorAll(`.btn-toggle.${CLONED_CLASS}`);
   clonedBtns.forEach(clonedBtn => clonedBtn.remove());
 }
 
-// 函数：处理响应式逻辑
+// 处理响应式逻辑
 function handleResponsive() {
   if (window.innerWidth <= 768) {
     if (sidebar.classList.contains('collapsed')) {
@@ -84,17 +81,14 @@ window.addEventListener('resize', handleResponsive);
 buttons.forEach((button) => {
   button.addEventListener('click', () => {
     toggleNav();
-
     // 在大屏幕下，根据导航状态添加或删除克隆按钮
     if (window.innerWidth > 768) {
       if (content.classList.contains('expanded')) {
-
         addClonedButton(button);
       } else {
         removeClonedButtons();
       }
     }
-
     // 在小屏幕下，已通过 handleResponsive 函数管理克隆按钮
   });
 });
@@ -539,6 +533,8 @@ async function getAIResponse(session) {
   session.messages.push(loadingMessage);
   saveSessions();
   renderMessages();
+  // 移除加载消息
+  session.messages.pop();
 
   try {
     const response = await fetch(API_URL, { // API端点
@@ -581,9 +577,6 @@ async function getAIResponse(session) {
 
     const data = await response.json();
 
-    // 移除加载消息
-    session.messages.pop();
-
     // 添加AI的回复
     const aiReply = data.choices[0].message.content || '抱歉，我无法生成回复。';
     session.messages.push({ role: 'assistant', content: aiReply, timestamp: Date.now() });
@@ -591,8 +584,6 @@ async function getAIResponse(session) {
     renderMessages();
   } catch (error) {
     console.error('Error fetching JT GPT response:', error);
-    // 移除加载消息
-    session.messages.pop();
     // 添加错误消息
     session.messages.push({ role: 'assistant', content: '抱歉，JT GPT 回复失败。请稍后再试。', timestamp: Date.now() });
     saveSessions();

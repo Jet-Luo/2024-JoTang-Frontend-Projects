@@ -42,20 +42,26 @@ p {
 
 /* 设置滚动条的宽度或高度 */
 ::-webkit-scrollbar {
-  width: 8px; /* 垂直滚动条宽度 */
-  height: 8px; /* 水平滚动条高度 */
+  width: 8px;
+  /* 垂直滚动条宽度 */
+  height: 8px;
+  /* 水平滚动条高度 */
 }
 
 /* 滚动条的轨道（背景） */
 ::-webkit-scrollbar-track {
-  background: var(--background-color-light); /* 轨道颜色 */
-  border-radius: 5px; /* 轨道圆角 */
+  background: var(--background-color-light);
+  /* 轨道颜色 */
+  border-radius: 5px;
+  /* 轨道圆角 */
 }
 
 /* 滚动条滑块（滑块部分） */
 ::-webkit-scrollbar-thumb {
-  background: var(--background-color-dark); /* 滑块颜色 */
-  border-radius: 5px; /* 滑块圆角 */
+  background: var(--background-color-dark);
+  /* 滑块颜色 */
+  border-radius: 5px;
+  /* 滑块圆角 */
 }
 
 body {
@@ -122,7 +128,7 @@ body {
   background-color: var(--button-background);
 }
 
-.sidebar .session-list button {
+.sidebar .session-item button {
   background-color: transparent;
   color: var(--text-color-dark);
   border: none;
